@@ -1,6 +1,6 @@
 # Flask JWT Authentication API
 
-A robust Flask-based REST API demonstrating JSON Web Token (JWT) authentication with secure password hashing, environment variable configuration, and modular route handling.
+A modular Flask-based REST API demonstrating JSON Web Token (JWT) authentication with secure password hashing, environment variable configuration, and Flask Blueprints for scalability.
 
 ## Features
 
@@ -8,25 +8,49 @@ A robust Flask-based REST API demonstrating JSON Web Token (JWT) authentication 
 - Secure password hashing with bcrypt
 - Environment variable configuration with python-dotenv
 - Cross-Origin Resource Sharing (CORS) support
-- Modular route handling with Flask Blueprints
+- Modular structure with Flask Blueprints
 - Comprehensive logging
 - Error handling for common HTTP errors
+
+## Project Structure
+
+```
+flask-jwt-auth/
+├── app/
+│   ├── __init__.py        # Initializes Flask app and extensions
+│   ├── config.py          # Configuration settings
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── user.py        # User model
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   └── auth.py        # Authentication routes
+│   ├── utils/
+│   │   ├── __init__.py
+│   │   └── helpers.py     # Helper functions
+├── .env                   # Environment variables (not tracked)
+├── .env.example           # Example environment file
+├── .gitignore             # Git ignore file
+├── requirements.txt       # Dependencies
+├── README.md              # This file
+└── run.py                 # Entry point
+```
 
 ## Prerequisites
 
 - Python 3.7 or higher
 - pip (Python package manager)
-- Git (optional, for cloning the repository)
+- Git (optional, for cloning)
 
 ## Installation
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/code-with-p1/FlaskJWT.git
-   cd FlaskJWT
+   git clone https://github.com/<your-username>/<your-repo-name>.git
+   cd <your-repo-name>
    ```
 
-2. **Create a Virtual Environment** (recommended):
+2. **Create a Virtual Environment**:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
@@ -37,23 +61,30 @@ A robust Flask-based REST API demonstrating JSON Web Token (JWT) authentication 
    pip install -r requirements.txt
    ```
 
-4. **Create a `.env` File**:
-   Create a `.env` file in the project root with the following content:
-   ```env
-   SECRET_KEY=your-secure-secret-key
-   JWT_SECRET_KEY=your-secure-jwt-secret-key
-   FLASK_DEBUG=True
-   PORT=5000
-   ```
-   Replace `your-secure-secret-key` and `your-secure-jwt-secret-key` with strong, unique values.
+4. **Set Up Environment Variables**:
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Generate secure keys:
+     ```bash
+     openssl rand -hex 32
+     ```
+   - Update `.env` with the generated keys:
+     ```
+     SECRET_KEY=<your-secure-key>
+     JWT_SECRET_KEY=<your-secure-jwt-key>
+     FLASK_DEBUG=True
+     PORT=5000
+     ```
 
 ## Running the Application
 
 1. **Start the Flask App**:
    ```bash
-   python app.py
+   python run.py
    ```
-   The application will run on `http://127.0.0.1:5000` (or the port specified in `.env`).
+   The app runs on `http://127.0.0.1:5000` (or the port specified in `.env`).
 
 ## API Endpoints
 
@@ -114,36 +145,25 @@ For demonstration, the app uses an in-memory user database:
 - User 1: `username: user1`, `password: password1`
 - User 2: `username: user2`, `password: password2`
 
-**Note**: Passwords are hashed using bcrypt. In production, use a secure database like PostgreSQL or MongoDB.
-
-## Project Structure
-
-```
-your-repo-name/
-├── app.py              # Main Flask application
-├── .env                # Environment variables (not tracked in Git)
-├── requirements.txt    # Project dependencies
-├── README.md           # Project documentation
-└── .gitignore          # Git ignore file
-```
+**Note**: Passwords are hashed using bcrypt. In production, use a secure database.
 
 ## Security Notes
 
-- **Secret Keys**: Store `SECRET_KEY` and `JWT_SECRET_KEY` in `.env` and never commit them to Git.
-- **Password Hashing**: Passwords are hashed using bcrypt for security.
-- **CORS**: Configured to allow all origins (`*`) for demo purposes. Restrict origins in production.
+- **Secret Keys**: Store in `.env` and never commit to Git.
+- **Password Hashing**: Uses bcrypt for secure password storage.
+- **CORS**: Allows all origins (`*`) for demo. Restrict in production.
 - **Debug Mode**: Set `FLASK_DEBUG=False` in production.
 - **HTTPS**: Use HTTPS in production to secure JWT tokens.
 
 ## Troubleshooting
 
 - **Module Not Found**: Run `pip install -r requirements.txt`.
-- **Invalid Token**: Ensure the `Authorization` header is formatted as `Bearer <token>`.
-- **Port Conflict**: Change the `PORT` in `.env` or kill the process using the port.
+- **Invalid Token**: Ensure `Authorization` header is `Bearer <token>`.
+- **Port Conflict**: Change `PORT` in `.env` or free the port.
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Contributions are welcome! Open an issue or submit a pull request.
 
 ## License
 
