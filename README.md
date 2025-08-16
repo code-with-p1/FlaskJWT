@@ -15,7 +15,7 @@ A modular Flask-based REST API demonstrating JSON Web Token (JWT) authentication
 ## Project Structure
 
 ```
-flask-jwt-auth/
+FlaskJWT/
 ├── app/
 │   ├── __init__.py        # Initializes Flask app and extensions
 │   ├── config.py          # Configuration settings
